@@ -94,7 +94,7 @@ The script writes two files in the current directory:
 
 * `splat_rgbd.ply`: Gaussian splats in local object coordinates, as in `demo.py`,
   without applying the predicted scale or pose.
-* `mesh_rgbd.ply`: a mesh with predicted scale, rotation, and translation applied,
+* `mesh_rgbd.glb`: a mesh with predicted scale, rotation, and translation applied,
   in camera coordinates with X right, Y down, and Z forward, in meters.
 
 
