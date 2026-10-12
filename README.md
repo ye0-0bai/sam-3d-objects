@@ -69,6 +69,34 @@ For  more details and multi-object reconstruction, please take a look at out two
 * [single object](notebook/demo_single_object.ipynb)
 * [multi object](notebook/demo_multi_object.ipynb)
 
+### RGB-D single-object reconstruction
+
+After setup, run from the repository root:
+
+```bash
+python demo_rgbd.py
+```
+
+The example reconstructs mask `0` from the local NOCS inputs in
+`notebook/images/nocs_0003_0354/`, using the `hf` checkpoint and seed `42`.
+These inputs and the mesh alignment follow [PR #79](https://github.com/facebookresearch/sam-3d-objects/pull/79)
+at commit `707f2fe7689ae8605f6d2ec381e55d525d980ef1`.
+To use your own data, edit the configuration variables at the top of
+`demo_rgbd.py`: an RGB image, an aligned single-channel 16-bit depth PNG in
+millimeters, a whitespace-separated `3 x 3` camera intrinsic matrix in pixel
+units (`cam_K.txt`), and a numbered object mask (`0.png` by default).
+RGB, depth, and mask dimensions must match. The mask must be nonempty and cover
+valid depth. Depth is converted to meters, with nonpositive or nonfinite values
+treated as invalid, then back-projected into a PyTorch3D pointmap `[-X, -Y, Z]`
+and passed to the existing inference interface.
+
+The script writes two files in the current directory:
+
+* `splat_rgbd.ply`: Gaussian splats in local object coordinates, as in `demo.py`,
+  without applying the predicted scale or pose.
+* `mesh_rgbd.ply`: a mesh with predicted scale, rotation, and translation applied,
+  in camera coordinates with X right, Y down, and Z forward, in meters.
+
 
 ## SAM 3D Body
 
