@@ -97,6 +97,7 @@ def main():
     mesh.vertices = transform_mesh_vertices(
         mesh.vertices, output["rotation"], output["translation"], output["scale"]
     )
+    mesh.faces = mesh.faces[:, [0, 2, 1]]
     mesh.export("mesh_rgbd.glb")
     print("Your local Gaussian splat has been saved to splat_rgbd.ply")
     print("Your camera-space mesh (meters) has been saved to mesh_rgbd.glb")
